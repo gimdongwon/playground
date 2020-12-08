@@ -37,3 +37,5 @@ with tf.compat.v1.Session() as sess:
         h, c, a = sess.run([hypothesis, predicted, accuracy], feed_dict=feed)
 
         print("\nHypothesis: ", h, "\nCorrect (Y): ", c, "\nAccuracy: ", a)
+
+        

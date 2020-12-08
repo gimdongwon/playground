@@ -7,7 +7,7 @@ with tf.compat.v1.Session() as sess:
     tf.set_random_seed(777)  # for reproducibility
 
     filename_queue = tf.train.string_input_producer(
-        ['data-01-test-score.csv'], shuffle=False, name='filename_queue')
+        ['/Users/dong-wongim/Documents/playgroud/tensorflow/data-01-test-score.csv'], shuffle=False, name='filename_queue')
 
     reader = tf.TextLineReader()
     key, value = reader.read(filename_queue)
@@ -30,7 +30,7 @@ with tf.compat.v1.Session() as sess:
 
     # Hypothesis
     hypothesis = tf.matmul(X, W) + b
-
+# 
     # Simplified cost/loss function
     cost = tf.reduce_mean(tf.square(hypothesis - Y))
 
