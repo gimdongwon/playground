@@ -2,15 +2,15 @@
 
 echo $1 ' is started.... 🙈' | sed "s/.py//g"
 
-sleep 1
+sleep 0.5
 
 echo '..'
 
-sleep 1
+sleep 0.5
 
 echo '..'
 
-sleep 1
+sleep 0.5
 
 source /Users/dong-wongim/Documents/playgroud/venv/bin/activate
 
