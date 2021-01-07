@@ -1,5 +1,6 @@
 # 함수 작성
 
+# 1. 큰수의 법칩
 def bigNum():
     N,M,K = map(int,input().split())
     data = list(map(int, input().split()))
