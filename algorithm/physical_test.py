@@ -254,7 +254,7 @@ def solution(n, build_frame):
 def chicken():
     from itertools import combinations
     N,M = map(int, input().split())
-    arr = [list(map(int, input())) for _ in range(N)]
+    arr = [list(map(int, input().split())) for _ in range(N)]
     
     home = []
     chickenHome = []
@@ -284,8 +284,33 @@ def chicken():
             for homeItem in home:
                 distance += abs(resultItem[0] - homeItem[0]) + abs(resultItem[1] - homeItem[1])
             distanceZip.append(distance)
-    # print(result)
+    
     print(min(distanceZip))
     
 
-chicken()
+# chicken()
+
+def wallInspection(n, weak, dist):
+    from itertools import permutations
+    length = len(weak)
+    # 길이를 두배로 늘려서 일자 형태로 변경
+    for i in range(length):
+        weak.append(weak[i]+n)
+    answer = len(dist) + 1 # 투입할 친구 수의 최솟값을 찾아야 하므로 len(dist)+1로 초기화
+    # 0부터 length-1 까지의 위치를 각각의 시작점으로 설정
+    for start in range(length):
+        # 친구를 나열하는 모든 경우의 수 각각에 대하여 확인
+        for friends in list(permutations(dist, len(dist))):
+            count = 1 # 투입할 친구의 수
+            position = weak[start]+friends[count-1] # 해당 친구가 점검할 수 있는 마지막 위치
+            for index in range(start, start+length): # 시작점부터 모든 취약지점을 확인
+                if position<weak[index]: # 점검할 수 있는 위치를 벗어나는 경우
+                    count+=1 # 새로운 친구 투입
+                    if count>len(dist): # 더 ㅌ투입이 불가능 하다면 종료
+                        break
+                    position = weak[index]+friends[count-1]
+            answer = min(answer, count) # 최솟값 계산
+    # 다 투입해도 취약 지점을 전부 보수할 수 없는 경우.
+    if answer > len(dist):
+        return -1
+    return answer
