@@ -11,7 +11,7 @@ def dfs(graph, v, visited):
         if not visited[i]:
             dfs(graph, i, visited)
 
-# dfs(graph, 1, visited)
+dfs(graph, 1, visited)
 
 from collections import deque
 
