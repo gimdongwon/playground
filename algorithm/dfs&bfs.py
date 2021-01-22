@@ -11,7 +11,7 @@ def dfs(graph, v, visited):
         if not visited[i]:
             dfs(graph, i, visited)
 
-dfs(graph, 1, visited)
+#dfs(graph, 1, visited)
 
 from collections import deque
 
@@ -30,4 +30,57 @@ def bfs(graph, start, visited):
                 queue.append(i)
                 visited[i] = True
 
-bfs(graph, 1, visited)
+# bfs(graph, 1, visited)
+
+def iceAge():
+    iceGraph = [[0,0,0,0,0,1,1,1,1,0], [0,0,0,1,1], [1,1,1,1,1], [0,0,0,0,0]]
+    n,m = len(iceGraph), len(iceGraph[0])
+    def iceMaker(x,y):
+        if x<=-1 or x>=n or y<=-1 or y>=m:
+            return False
+        if iceGraph[x][y] ==0:
+            iceGraph[x][y] = 1
+            iceMaker(x-1, y)
+            iceMaker(x+1, y)
+            iceMaker(x, y-1)
+            iceMaker(x, y+1)
+            return True
+        return False
+
+    result = 0
+    for i in range(n):
+        for j in range(m):
+            if iceMaker(i,j) == True:
+                result+=1
+    print(result)
+
+def maze():
+    # mazeGraph = [[1,1,0], [0,1,0],[0,1,1]]
+    mazeGraph = [[1,0,1,0,1,0], [1,1,1,1,1,1],[0,0,0,0,0,1],[1,1,1,1,1,1], [1,1,1,1,1,1]]
+    n,m = len(mazeGraph), len(mazeGraph[0])
+    dx = [-1,1,0,0]
+    dy = [0,0,-1,1]
+
+    def escape(x,y):
+        queue = deque()
+        queue.append((x,y))
+
+        while queue:
+            x,y = queue.popleft()
+            # 현재 위치에서 4 방향으로의 위치 확인
+            for i in range(4):
+                nx = x+dx[i]
+                ny = y+dy[i]
+                # 미로 찾기 공간에서 벗어난 경우 무시
+                if nx < 0 or nx >= n or ny<0 or ny>=m:
+                    continue
+                # 벽인 경우 무시
+                if mazeGraph[nx][ny] ==0:
+                    continue
+                if mazeGraph[nx][ny] == 1:
+                    mazeGraph[nx][ny] = mazeGraph[x][y]+1
+                    queue.append((nx, ny))
+        return mazeGraph[n-1][m-1]
+    print(escape(0,0))
+
+maze()
